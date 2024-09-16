@@ -1,4 +1,4 @@
-# Equivalencias Python -> JavaScript
+<h1 style="text-align: center;">Equivalencias Python -> JavaScript</h1>
 
 | **Concepto**                | **Python**                                                                 | **JavaScript**                                                             |
 |-----------------------------|---------------------------------------------------------------------------|---------------------------------------------------------------------------|
