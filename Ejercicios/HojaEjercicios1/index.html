@@ -1,12 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="/Ejercicios/HojaEjercicios1/ejercicio1.js"></script>
+    <menta name="author" content="Nichole Louis">
+    <title>Ejercicios de JavaScript Hoja 1</title>
+    <style>
+        h1{ 
+            text-align: center;
+            color: purple;
+        }
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+        }
+        h2 { 
+            color: purple; 
+        }
+        pre { 
+            background-color: plum; 
+            padding: 10px; 
+            border-radius: 5px; 
+        }
+    </style>
+    <script src="/Ejercicios/HojaEjercicios1/ejercicios.js"></script>
 </head>
 <body>
-    
+    <h1>Ejercicios de JavaScript</h1>
+
+    <h2>Ejercicio 1: Control de variables</h2>
+    <input type="number" id="varA" placeholder="Variable a">
+    <input type="number" id="varB" placeholder="Variable b">
+    <input type="number" id="varC" placeholder="Variable c">
+    <button onclick="checkVariables()">Probar</button>
+    <pre id="output1"></pre>
+
+    <h2>Ejercicio 2: Argumentos</h2>
+    <input type="number" id="inputNumber" placeholder="Introduce un número (0-6)">
+    <button onclick="checkNumber(document.getElementById('inputNumber').value)">Probar</button>
+    <pre id="output2"></pre>
+
+    <h2>Ejercicio 3: Bucle for</h2>
+    <button onclick="runLoop()">Probar</button>
+    <pre id="output3"></pre>
+
+    <h2>Ejercicio 4: Bucle while (break y continue)</h2>
+    <button onclick="runWhile()">Probar</button>
+    <pre id="output4"></pre>
+
+    <h2>Ejercicio 5: Fecha y hora actual</h2>
+    <button onclick="showDateTime()">Probar</button>
+    <pre id="output5"></pre>
+
+    <h2>Ejercicio 6: Crear fecha</h2>
+    <button onclick="createDate()">Probar</button>
+    <pre id="output6"></pre>
+
+    <h2>Ejercicio 7: ¿Cúanto tiempo ha pasado?</h2>
+    <input type="date" id="birthDate" placeholder="Fecha de nacimiento">
+    <select id="timeUnit">
+        <option value="s">Segundos</option>
+        <option value="m">Minutos</option>
+        <option value="h">Horas</option>
+        <option value="d">Días</option>
+    </select>
+    <button onclick="calculateTime()">Probar</button>
+    <pre id="output7"></pre>
+
+    <h2>Ejercicio 8: Hora decimal a formato equivalente</h2>
+    <input type="number" id="decimalHour" placeholder="Introduce una hora" step="0.01">
+    <button onclick="convertHour()">Probar</button>
+    <pre id="output8"></pre>
+
+    <h2>Ejercicio 9: Fecha juliana</h2>
+    <input type="date" id="julianDate" placeholder="Fecha">
+    <button onclick="convert2Julian()">Probar</button>
+    <pre id="output9"></pre>
+
+    <h2>Ejercicio 10: Conversión de ángulos</h2>
+    <input type="number" id="angle" placeholder="Ángulo en grados">
+    <button onclick="angleConvert()">Probar</button>
+    <pre id="output10"></pre>
+
+
+    <script src="script.js"></script>
 </body>
 </html>
