@@ -153,3 +153,101 @@ Ejemplo de Proyecto Completado: To-Do List
 | `alert`                        | Muestra una ventana emergente de alerta al usuario.                                                 |
 | `prompt`                       | Muestra una ventana emergente que solicita una entrada del usuario y devuelve el texto ingresado.   |
 | `confirm`                      | Muestra una ventana emergente que solicita una confirmación del usuario y devuelve `true` o `false`.|
+
+### Ejemplo
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini App To-Do List</title>
+</head>
+<body>
+    <h1>Lista de Tareas</h1>
+    <input type="text" id="new-task" placeholder="Nueva tarea...">
+    <button id="add-task-btn">Agregar</button>
+    <ul id="task-list"></ul>
+
+    <script>
+        // Seleccionamos los elementos principales
+        const taskInput = document.getElementById('new-task');        // Obtener un elemento por ID
+        const addTaskButton = document.getElementById('add-task-btn');
+        const taskList = document.getElementById('task-list');
+
+        // Cargar tareas guardadas en localStorage al iniciar la app
+        const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        savedTasks.forEach(taskText => createTaskElement(taskText));
+
+        // Añadir evento al botón "Agregar"
+        addTaskButton.addEventListener('click', () => {
+            const taskText = taskInput.value.trim();
+            if (taskText === "") return alert("¡Escribe una tarea!"); // Validación usando alert
+            
+            createTaskElement(taskText);                            // Crear el elemento de tarea
+            saveTask(taskText);                                     // Guardar en localStorage
+            taskInput.value = "";                                   // Limpiar el campo de entrada
+        });
+
+        // Función para crear un nuevo elemento de tarea en el DOM
+        function createTaskElement(taskText) {
+            const listItem = document.createElement('li');           // Crear elemento de tarea
+            listItem.textContent = taskText;
+            
+            // Añadir opción de completar tarea
+            listItem.addEventListener('click', () => {
+                listItem.classList.toggle('completed');              // Usar toggle para marcar tarea completada
+                console.log(`Tarea "${taskText}" completada:`, listItem.classList.contains('completed'));
+            });
+
+            // Añadir opción de eliminar tarea
+            listItem.addEventListener('dblclick', () => {
+                if (confirm("¿Eliminar tarea?")) {                  // Confirmar antes de eliminar
+                    taskList.removeChild(listItem);                 // Eliminar del DOM
+                    removeTask(taskText);                           // Eliminar de localStorage
+                }
+            });
+            
+            taskList.appendChild(listItem);                          // Añadir tarea a la lista en el DOM
+        }
+
+        // Guardar una tarea en localStorage
+        function saveTask(taskText) {
+            savedTasks.push(taskText);
+            localStorage.setItem('tasks', JSON.stringify(savedTasks)); // Guardar array actualizado en localStorage
+        }
+
+        // Eliminar una tarea de localStorage
+        function removeTask(taskText) {
+            const taskIndex = savedTasks.indexOf(taskText);
+            if (taskIndex > -1) {
+                savedTasks.splice(taskIndex, 1);
+                localStorage.setItem('tasks', JSON.stringify(savedTasks));
+            }
+        }
+
+        // Ejemplo adicional de uso de setTimeout y setInterval
+        setTimeout(() => alert("¡No olvides revisar tus tareas!"), 5000);  // Mostrar alerta después de 5 segundos
+
+        let count = 0;
+        setInterval(() => {
+            console.log("App activa durante", ++count, "segundos.");     // Contador en consola
+        }, 1000);
+
+        // Ejemplo de uso de Math.random y Math.floor para un número aleatorio
+        const randomNum = Math.floor(Math.random() * 10) + 1;            // Número entre 1 y 10
+        console.log("Número aleatorio entre 1 y 10:", randomNum);
+        
+    </script>
+
+    <style>
+        /* Ejemplo de estilos básicos */
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</body>
+</html>
+```
