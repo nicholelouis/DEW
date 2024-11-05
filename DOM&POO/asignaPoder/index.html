@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asignar Poder a Superhéroes</title>
+    <style>
+        h1{color: plum;}
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #poder {
+            font-weight: bold;
+            margin-top: 20px;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Selecciona un superhéroe</h1>
+
+    <label for="superheroes">Elige un superhéroe:</label>
+    <select id="superheroes" onchange="mostrarPoder()">
+        <option value="">Selecciona</option>
+        <option value="Superman">Superman</option>
+        <option value="Batman">Batman</option>
+        <option value="Wonder Woman">Wonder Woman</option>
+        <option value="Flash">Flash</option>
+        <option value="Aquaman">Aquaman</option>
+    </select>
+
+    <p id="poder"></p>
+
+    <script src="./script.js"></script>
+
+</body>
+</html>

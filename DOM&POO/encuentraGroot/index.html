@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1{text-align: center; color: purple;}
+        body {font-family: Arial, sans-serif;  height: 100vh; /* Asegurar que el contenedor ocupe el 100% de la altura de la ventana */
+            display: flex; text-align: center; align-items: center;}
+        h2 {color: purple;}
+        p {background-color: plum; padding: 10px; border-radius: 5px;}
+        input{font-size: 15px;}
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 10px; 
+            width: 100%; 
+            align-items: center;
+        }
+        .grid-container img {
+            width: 300px; 
+            height: auto; 
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-container">
+        <img src="./p1.png">
+        <img src="./p2.png">
+        <img src="./groot.png" id="groot">
+        <img src="./p3.png">
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: black;
+        }
+        #superman {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: bottom 1s;
+        }
+        button{
+            font-size: 30px;
+            margin-top: 350px;
+            margin-left: 200px;
+        }
+    </style>
+</head>
+<body>
+    <img src="./superman.png" id="superman" alt="">
+    <button onclick="superman.volar()">Hazlo Volar</button>
+    <script src="./script.js"></script>
+</body>
+</html>
