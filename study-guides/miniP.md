@@ -400,3 +400,537 @@ function resetScore() {
     updateScore();
 }
 ```
+
+# Temporizador cuenta regresiva interactivo
+
+### html
+```htm
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporizador de Cuenta Regresiva</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Temporizador de Cuenta Regresiva</h1>
+    <div id="timer-container">
+        <label for="minutes">Minutos:</label>
+        <input type="number" id="minutes" min="0" max="60" value="0">
+        
+        <label for="seconds">Segundos:</label>
+        <input type="number" id="seconds" min="0" max="59" value="0">
+        
+        <button onclick="startTimer()">Iniciar</button>
+        <button onclick="resetTimer()">Reiniciar</button>
+        
+        <div id="countdown">00:00</div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
+```
+
+### JS
+```js
+let countdownInterval;
+let remainingTime = 0;
+
+function startTimer() {
+    // Obtener los minutos y segundos del input
+    const minutes = parseInt(document.getElementById("minutes").value, 10);
+    const seconds = parseInt(document.getElementById("seconds").value, 10);
+    
+    // Calcular el tiempo total en segundos
+    remainingTime = minutes * 60 + seconds;
+
+    // Verificar que el tiempo ingresado es válido
+    if (remainingTime <= 0) {
+        alert("Por favor, ingresa un tiempo mayor a cero.");
+        return;
+    }
+
+    // Si ya hay un intervalo en curso, limpiarlo
+    if (countdownInterval) {
+        clearInterval(countdownInterval);
+    }
+
+    // Iniciar el intervalo que actualiza el temporizador cada segundo
+    countdownInterval = setInterval(updateCountdown, 1000);
+}
+
+function updateCountdown() {
+    if (remainingTime <= 0) {
+        clearInterval(countdownInterval);
+        document.getElementById("countdown").textContent = "¡Tiempo completado!";
+        alert("¡El tiempo ha terminado!");
+        return;
+    }
+
+    // Calcular minutos y segundos restantes
+    const minutes = Math.floor(remainingTime / 60);
+    const seconds = remainingTime % 60;
+
+    // Mostrar tiempo restante en formato 00:00
+    document.getElementById("countdown").textContent = 
+        `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    
+    // Reducir el tiempo restante en un segundo
+    remainingTime--;
+}
+
+function resetTimer() {
+    // Limpiar el intervalo si está en ejecución
+    if (countdownInterval) {
+        clearInterval(countdownInterval);
+    }
+
+    // Resetear el contador y el display del temporizador
+    remainingTime = 0;
+    document.getElementById("countdown").textContent = "00:00";
+    document.getElementById("minutes").value = "0";
+    document.getElementById("seconds").value = "0";
+}
+```
+
+### Explicación
+
+1. Inicio del Temporizador:
+- El usuario ingresa minutos y segundos en los campos correspondientes.
+- Al hacer clic en "Iniciar", la función startTimer() convierte el tiempo total a segundos.
+- Se inicia un intervalo (setInterval) que ejecuta la función updateCountdown() cada segundo.
+
+2. Actualización de la Cuenta Regresiva:
+- En updateCountdown(), el tiempo se decrementa en un segundo en cada llamada y se actualiza el contenido de #countdown con el formato MM:SS.
+- Si el tiempo llega a cero, el temporizador se detiene y se muestra un mensaje de alerta.
+
+3. Reinicio del Temporizador:
+- La función resetTimer() limpia el intervalo, restablece el valor de remainingTime a 0 y actualiza el contador visual para mostrar "00:00".
+
+
+# Menu onteractivo
+
+### html
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Comandas de Restaurante</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Menú de Comandas</h1>
+    </header>
+
+    <div id="menu">
+        <h2>Entradas</h2>
+        <ul id="entradas">
+            <li>
+                <span>Ensalada César</span> - <span>$5</span>
+                <button onclick="addToOrder('Ensalada César', 5)">Añadir</button>
+            </li>
+            <li>
+                <span>Sopa de Tomate</span> - <span>$4</span>
+                <button onclick="addToOrder('Sopa de Tomate', 4)">Añadir</button>
+            </li>
+        </ul>
+
+        <h2>Platos Principales</h2>
+        <ul id="platos-principales">
+            <li>
+                <span>Pizza Margherita</span> - <span>$12</span>
+                <button onclick="addToOrder('Pizza Margherita', 12)">Añadir</button>
+            </li>
+            <li>
+                <span>Burger de Res</span> - <span>$10</span>
+                <button onclick="addToOrder('Burger de Res', 10)">Añadir</button>
+            </li>
+        </ul>
+
+        <h2>Postres</h2>
+        <ul id="postres">
+            <li>
+                <span>Brownie con Helado</span> - <span>$6</span>
+                <button onclick="addToOrder('Brownie con Helado', 6)">Añadir</button>
+            </li>
+            <li>
+                <span>Cheesecake</span> - <span>$7</span>
+                <button onclick="addToOrder('Cheesecake', 7)">Añadir</button>
+            </li>
+        </ul>
+    </div>
+
+    <div id="pedido">
+        <h2>Tu Comanda</h2>
+        <ul id="comanda-lista">
+            <!-- Los artículos de la comanda se añadirán aquí -->
+        </ul>
+        <h3>Total: $<span id="total">0</span></h3>
+        <button onclick="clearOrder()">Limpiar Comanda</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+```
+
+### JS
+```js
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Comandas de Restaurante</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Menú de Comandas</h1>
+    </header>
+
+    <div id="menu">
+        <h2>Entradas</h2>
+        <ul id="entradas">
+            <li>
+                <span>Ensalada César</span> - <span>$5</span>
+                <button onclick="addToOrder('Ensalada César', 5)">Añadir</button>
+            </li>
+            <li>
+                <span>Sopa de Tomate</span> - <span>$4</span>
+                <button onclick="addToOrder('Sopa de Tomate', 4)">Añadir</button>
+            </li>
+        </ul>
+
+        <h2>Platos Principales</h2>
+        <ul id="platos-principales">
+            <li>
+                <span>Pizza Margherita</span> - <span>$12</span>
+                <button onclick="addToOrder('Pizza Margherita', 12)">Añadir</button>
+            </li>
+            <li>
+                <span>Burger de Res</span> - <span>$10</span>
+                <button onclick="addToOrder('Burger de Res', 10)">Añadir</button>
+            </li>
+        </ul>
+
+        <h2>Postres</h2>
+        <ul id="postres">
+            <li>
+                <span>Brownie con Helado</span> - <span>$6</span>
+                <button onclick="addToOrder('Brownie con Helado', 6)">Añadir</button>
+            </li>
+            <li>
+                <span>Cheesecake</span> - <span>$7</span>
+                <button onclick="addToOrder('Cheesecake', 7)">Añadir</button>
+            </li>
+        </ul>
+    </div>
+
+    <div id="pedido">
+        <h2>Tu Comanda</h2>
+        <ul id="comanda-lista">
+            <!-- Los artículos de la comanda se añadirán aquí -->
+        </ul>
+        <h3>Total: $<span id="total">0</span></h3>
+        <button onclick="clearOrder()">Limpiar Comanda</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+```
+
+### Explicacion
+
+#### HTML:
+La página tiene un menú dividido en tres secciones: Entradas, Platos Principales, y Postres. Cada sección contiene productos con su precio y un botón para añadirlo a la comanda.
+Cuando el usuario añade un item, este aparece en la sección "Tu Comanda", donde se muestra el nombre del producto, su precio y un botón para eliminarlo.
+
+#### JavaScript:
+addToOrder(itemName, itemPrice): Esta función agrega un producto al pedido, actualizando tanto la lista de productos en la comanda como el total.
+updateOrder(): Actualiza la lista de la comanda en la interfaz. Muestra cada producto con un botón de eliminar.
+removeFromOrder(itemToRemove): Elimina un producto del pedido y actualiza tanto la lista como el total.
+updateTotal(): Actualiza el total de la comanda mostrado en la página.
+clearOrder(): Limpia la comanda y restablece el total a 0.
+
+# Menu con .JSON
+
+### html
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Restaurante con Datos desde JSON</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Menú del Restaurante</h1>
+    </header>
+
+    <div id="menu">
+        <!-- Aquí se cargarán dinámicamente los productos del menú -->
+    </div>
+
+    <div id="pedido">
+        <h2>Tu Comanda</h2>
+        <ul id="comanda-lista">
+            <!-- Los artículos de la comanda se añadirán aquí -->
+        </ul>
+        <h3>Total: $<span id="total">0</span></h3>
+        <button onclick="clearOrder()">Limpiar Comanda</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+```
+
+Parte del json
+```js
+[
+    {
+        "category": "Entradas",
+        "items": [
+            { "name": "Ensalada César", "price": 5 },
+            { "name": "Sopa de Tomate", "price": 4 }
+        ]
+    }, ... sigue
+```
+
+### Js
+```js
+let total = 0;
+const orderList = [];
+
+// Función para cargar los datos del JSON (simulado)
+function loadMenu() {
+    // Usamos fetch para simular la obtención de datos de un archivo JSON
+    fetch('data.json')
+        .then(response => response.json())  // Convertir la respuesta a JSON
+        .then(menuData => {
+            // Llamamos a la función para mostrar el menú
+            displayMenu(menuData);
+        })
+        .catch(error => {
+            console.error('Error al cargar los datos del menú:', error);
+        });
+}
+
+// Función para mostrar el menú en la página
+function displayMenu(menuData) {
+    const menuContainer = document.getElementById("menu");
+
+    // Iteramos a través de las categorías y los elementos
+    menuData.forEach(category => {
+        const categorySection = document.createElement('div');
+        const categoryTitle = document.createElement('h2');
+        categoryTitle.textContent = category.category;
+        categorySection.appendChild(categoryTitle);
+
+        const categoryList = document.createElement('ul');
+
+        category.items.forEach(item => {
+            const li = document.createElement('li');
+            li.innerHTML = `<span>${item.name}</span> - <span>$${item.price}</span>`;
+
+            // Botón para añadir al pedido
+            const addButton = document.createElement('button');
+            addButton.textContent = "Añadir";
+            addButton.onclick = () => addToOrder(item.name, item.price);
+            li.appendChild(addButton);
+
+            categoryList.appendChild(li);
+        });
+
+        categorySection.appendChild(categoryList);
+        menuContainer.appendChild(categorySection);
+    });
+}
+
+// Función para añadir un item a la comanda
+function addToOrder(itemName, itemPrice) {
+    // Añadir el item a la lista de la comanda
+    orderList.push({ name: itemName, price: itemPrice });
+
+    // Actualizar el total
+    total += itemPrice;
+
+    // Actualizar la vista de la comanda y el total
+    updateOrder();
+    updateTotal();
+}
+
+// Actualizar la vista de la comanda
+function updateOrder() {
+    const comandaLista = document.getElementById("comanda-lista");
+    comandaLista.innerHTML = ''; // Limpiar la lista de la comanda
+
+    // Mostrar los items en la lista de la comanda
+    orderList.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.name} - $${item.price}`;
+
+        // Añadir un botón para eliminar el item
+        const removeButton = document.createElement('button');
+        removeButton.textContent = "Eliminar";
+        removeButton.onclick = () => removeFromOrder(item);
+
+        li.appendChild(removeButton);
+        comandaLista.appendChild(li);
+    });
+}
+
+// Función para eliminar un item de la comanda
+function removeFromOrder(itemToRemove) {
+    // Eliminar el item de la lista de la comanda
+    const index = orderList.indexOf(itemToRemove);
+    if (index > -1) {
+        orderList.splice(index, 1);
+    }
+
+    // Actualizar el total
+    total -= itemToRemove.price;
+
+    // Actualizar la lista de la comanda y el total
+    updateOrder();
+    updateTotal();
+}
+
+// Actualizar el total de la comanda
+function updateTotal() {
+    const totalElement = document.getElementById("total");
+    totalElement.textContent = total.toFixed(2);
+}
+
+// Limpiar la comanda
+function clearOrder() {
+    // Limpiar la comanda y el total
+    orderList.length = 0;
+    total = 0;
+
+    updateOrder();
+    updateTotal();
+}
+
+// Cargar el menú cuando la página se haya cargado
+window.onload = loadMenu;
+```
+
+# App de pelis
+
+### Html
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicación de Películas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Lista de Películas</h1>
+    </header>
+
+    <div id="movie-list">
+        <!-- Las películas se cargarán aquí -->
+    </div>
+
+    <div id="favorites">
+        <h2>Favoritas</h2>
+        <ul id="favorites-list">
+            <!-- Aquí se agregarán las películas favoritas -->
+        </ul>
+        <h3>Total de Favoritas: <span id="favorites-count">0</span></h3>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+```
+
+parte del json
+```js
+[
+    {
+        "title": "El Padrino",
+        "genre": "Crimen, Drama",
+        "year": 1972,
+        "rating": 9.2
+    }, ...sigue
+```
+
+```js
+let favoriteMovies = [];
+
+// Cargar las películas desde el archivo JSON
+function loadMovies() {
+    // Usamos fetch para obtener los datos de un archivo JSON
+    fetch('data.json')
+        .then(response => response.json())  // Convertir la respuesta a JSON
+        .then(movies => {
+            displayMovies(movies); // Mostrar las películas
+        })
+        .catch(error => {
+            console.error('Error al cargar las películas:', error);
+        });
+}
+
+// Mostrar las películas en la interfaz
+function displayMovies(movies) {
+    const movieListContainer = document.getElementById("movie-list");
+
+    movies.forEach(movie => {
+        const movieItem = document.createElement('div');
+        movieItem.classList.add('movie-item');
+        movieItem.innerHTML = `
+            <h3>${movie.title} (${movie.year})</h3>
+            <p><strong>Género:</strong> ${movie.genre}</p>
+            <p><strong>Calificación:</strong> ${movie.rating}</p>
+            <button onclick="addToFavorites('${movie.title}', '${movie.year}')">Añadir a Favoritas</button>
+        `;
+        movieListContainer.appendChild(movieItem);
+    });
+}
+
+// Agregar una película a la lista de favoritas
+function addToFavorites(title, year) {
+    // Evitar agregar duplicados
+    if (!favoriteMovies.find(movie => movie.title === title)) {
+        favoriteMovies.push({ title, year });
+        updateFavorites();
+    }
+}
+
+// Mostrar la lista de favoritas en la interfaz
+function updateFavorites() {
+    const favoritesListContainer = document.getElementById("favorites-list");
+    const favoritesCount = document.getElementById("favorites-count");
+
+    // Limpiar la lista de favoritas
+    favoritesListContainer.innerHTML = '';
+
+    // Añadir las películas favoritas a la lista
+    favoriteMovies.forEach(movie => {
+        const favoriteItem = document.createElement('li');
+        favoriteItem.textContent = `${movie.title} (${movie.year})`;
+        favoritesListContainer.appendChild(favoriteItem);
+    });
+
+    // Actualizar el número de películas favoritas
+    favoritesCount.textContent = favoriteMovies.length;
+}
+
+// Cargar las películas cuando la página se cargue
+window.onload = loadMovies;
+```
