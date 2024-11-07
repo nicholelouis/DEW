@@ -934,3 +934,119 @@ function updateFavorites() {
 // Cargar las películas cuando la página se cargue
 window.onload = loadMovies;
 ```
+
+## Resumen 
+
+1. Cargar el archivo data.json con fetch
+El primer paso es recuperar la información de un archivo JSON que contiene datos sobre las películas. Para ello, usamos el método fetch. Este método se encarga de enviar una solicitud a un servidor (en este caso, simulamos que es un archivo en el servidor local) y obtener la información.
+
+```js
+fetch('data.json')
+    .then(response => response.json())  // Convertir la respuesta a JSON
+    .then(movies => {
+        displayMovies(movies); // Llamamos a la función para mostrar las películas
+    })
+    .catch(error => {
+        console.error('Error al cargar las películas:', error);
+    });
+
+```
+
+- fetch('data.json'): Aquí usamos fetch para pedir el archivo data.json. Este archivo contiene la información de las películas.
+
+- .then(response => response.json()): Cuando fetch recibe la respuesta (es decir, el archivo data.json), convierte esa respuesta en un objeto JavaScript usando .json().
+
+- .then(movies => { ... }): Después de que los datos se convierten en objetos JavaScript, llamamos a la función displayMovies(movies) para mostrar las películas en la página.
+
+- .catch(error => {...}): Si hay un error en el proceso (como que no se encuentre el archivo data.json), lo mostramos en la consola con console.error.
+
+
+2. Mostrar las películas en la página
+La función displayMovies es la que se encarga de mostrar las películas que vienen desde el archivo JSON en la página web. Vamos a ver cómo funciona:
+
+```js
+function displayMovies(movies) {
+    const movieListContainer = document.getElementById("movie-list");
+
+    movies.forEach(movie => {
+        const movieItem = document.createElement('div');
+        movieItem.classList.add('movie-item');
+        movieItem.innerHTML = `
+            <h3>${movie.title} (${movie.year})</h3>
+            <p><strong>Género:</strong> ${movie.genre}</p>
+            <p><strong>Calificación:</strong> ${movie.rating}</p>
+            <button onclick="addToFavorites('${movie.title}', '${movie.year}')">Añadir a Favoritas</button>
+        `;
+        movieListContainer.appendChild(movieItem);
+    });
+}
+```
+
+- movies.forEach(movie => {...}): Recibimos las películas en la variable movies (un array). Usamos forEach para recorrer cada película y mostrarla en la página.
+
+- const movieItem = document.createElement('div'): Para cada película, creamos un div (un bloque HTML) que contendrá la información de esa película.
+
+- movieItem.innerHTML = ...: Aquí le agregamos el contenido HTML al div. Mostramos el título de la película, el año, el género y la calificación, y también añadimos un botón que dice "Añadir a Favoritas". Este botón ejecutará la función addToFavorites cuando se haga clic en él.
+
+- movieListContainer.appendChild(movieItem): Finalmente, agregamos cada película a la lista de películas en el contenedor (#movie-list), que es donde se mostrarán todas las películas en la página.
+
+
+3. Agregar una película a las "Favoritas"
+Cuando el usuario hace clic en el botón de "Añadir a Favoritas", se ejecuta la función addToFavorites:
+
+```js
+function addToFavorites(title, year) {
+    if (!favoriteMovies.find(movie => movie.title === title)) {
+        favoriteMovies.push({ title, year });
+        updateFavorites();
+    }
+}
+```
+
+- if (!favoriteMovies.find(movie => movie.title === title)): Este condicional verifica si la película que estamos agregando ya está en la lista de favoritas. Si ya está, no hace nada; si no está, la agrega.
+
+- favoriteMovies.push({ title, year }): Si la película no está en la lista de favoritas, la añadimos al array favoriteMovies con el título y año de la película.
+
+- updateFavorites(): Después de agregar la película, llamamos a la función updateFavorites para actualizar la lista de favoritas y mostrarla en la página.
+
+4. Mostrar las "Favoritas"
+La función updateFavorites es la que actualiza la lista de películas favoritas en la página:
+
+```js
+function updateFavorites() {
+    const favoritesListContainer = document.getElementById("favorites-list");
+    const favoritesCount = document.getElementById("favorites-count");
+
+    favoritesListContainer.innerHTML = '';  // Limpiar la lista actual de favoritas
+
+    favoriteMovies.forEach(movie => {
+        const favoriteItem = document.createElement('li');
+        favoriteItem.textContent = `${movie.title} (${movie.year})`;
+        favoritesListContainer.appendChild(favoriteItem);
+    });
+
+    favoritesCount.textContent = favoriteMovies.length;
+}
+```
+
+- favoritesListContainer.innerHTML = '': Primero limpiamos la lista de favoritas, para asegurarnos de que no haya repeticiones o elementos viejos.
+
+- favoriteMovies.forEach(movie => {...}): Recorremos todas las películas que están en la lista de favoritas (favoriteMovies) y las mostramos en la página.
+
+- favoritesCount.textContent = favoriteMovies.length: Finalmente, actualizamos el contador de "Favoritas", que es el número total de películas que se han agregado a la lista.
+
+5. Cargar el menú cuando la página se carga
+Para que todo esto funcione, necesitamos cargar las películas cuando la página se ha cargado. Esto lo logramos con el evento window.onload:
+
+```js
+window.onload = loadMovies;
+``` 
+
+- window.onload: Este evento se ejecuta cuando toda la página (incluyendo el HTML, CSS y JavaScript) ha sido completamente cargada. Al momento de cargar la página, se ejecuta la función loadMovies, que se encarga de cargar las películas desde el archivo data.json.
+
+Resumen
+- Recuperamos los datos de un archivo JSON utilizando fetch y los convertimos en objetos JavaScript.
+- Mostramos las películas en la página utilizando innerHTML y las mostramos dinámicamente.
+- Permites que el usuario agregue películas a una lista de favoritas, asegurándote de que no se repitan.
+- Actualizas la interfaz de la lista de favoritas y el contador de favoritas cuando el usuario agrega una película.
+- Cuando la página se carga, todo el proceso comienza con window.onload, que llama a loadMovies para obtener y mostrar las películas.
