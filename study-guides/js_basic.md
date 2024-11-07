@@ -284,3 +284,25 @@ localStorage.removeItem elimina un dato de localStorage por su clave.
 ```js
 localStorage.removeItem("nombre");
 ```
+
+| Método                          | Descripción                                                                               | Ejemplo                                    | Resultado                    |
+|---------------------------------|-------------------------------------------------------------------------------------------|--------------------------------------------|-------------------------------|
+| `toUpperCase()`                 | Convierte todos los caracteres a mayúsculas.                                              | `"hola".toUpperCase()`                     | `"HOLA"`                      |
+| `toLowerCase()`                 | Convierte todos los caracteres a minúsculas.                                              | `"HOLA".toLowerCase()`                     | `"hola"`                      |
+| `charAt(index)`                 | Devuelve el carácter en la posición especificada.                                         | `"Hola".charAt(1)`                         | `"o"`                         |
+| `charCodeAt(index)`             | Devuelve el código Unicode del carácter en la posición especificada.                      | `"Hola".charCodeAt(1)`                     | `111`                         |
+| `concat(string1, string2, ...)` | Concatena una o más cadenas al final de la cadena original.                               | `"Hola".concat(" mundo")`                  | `"Hola mundo"`                |
+| `includes(substring, start)`    | Comprueba si una cadena contiene un substring.                                            | `"Hola mundo".includes("mundo")`           | `true`                        |
+| `indexOf(substring, start)`     | Devuelve la posición de la primera aparición de un substring.                             | `"Hola mundo".indexOf("mundo")`            | `5`                           |
+| `lastIndexOf(substring, start)` | Devuelve la posición de la última aparición de un substring.                              | `"Hola mundo mundo".lastIndexOf("mundo")`  | `11`                          |
+| `slice(start, end)`             | Extrae una parte de la cadena desde `start` hasta `end`.                                  | `"Hola mundo".slice(0, 4)`                 | `"Hola"`                      |
+| `substring(start, end)`         | Similar a `slice`, pero sin índices negativos.                                            | `"Hola mundo".substring(0, 4)`             | `"Hola"`                      |
+| `substr(start, length)`         | Extrae una cantidad específica de caracteres desde el índice `start`.                     | `"Hola mundo".substr(0, 4)`                | `"Hola"`                      |
+| `trim()`                        | Elimina los espacios en blanco al inicio y al final de una cadena.                        | `"  Hola mundo  ".trim()`                  | `"Hola mundo"`                |
+| `split(separator, limit)`       | Divide la cadena en un array usando un separador.                                         | `"Hola mundo".split(" ")`                  | `["Hola", "mundo"]`           |
+| `replace(searchValue, newValue)`| Reemplaza la primera ocurrencia de `searchValue` con `newValue`.                          | `"Hola mundo".replace("mundo", "JS")`      | `"Hola JS"`                   |
+| `replaceAll(searchValue, newValue)`| Reemplaza todas las ocurrencias de `searchValue` con `newValue`.                     | `"mundo mundo".replaceAll("mundo", "JS")`  | `"JS JS"`                     |
+| `match(regex)`                  | Devuelve un array con las coincidencias de una expresión regular.                         | `"Hola mundo, hola JS".match(/hola/gi)`    | `["Hola", "hola"]`            |
+| `repeat(count)`                 | Repite la cadena el número de veces especificado.                                         | `"Hola".repeat(3)`                         | `"HolaHolaHola"`              |
+| `startsWith(substring, start)`  | Comprueba si la cadena comienza con el substring especificado.                           | `"Hola mundo".startsWith("Hola")`          | `true`                        |
+| `endsWith(substring, length)`   | Comprueba si la cadena termina con el substring especificado.                             | `"Hola mundo".endsWith("mundo")`           | `true`                        |
