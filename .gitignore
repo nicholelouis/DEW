@@ -1,0 +1,52 @@
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Build files (for TypeScript)
+dist/
+out/
+build/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Environment variables
+.env
+.env.*.local
+
+# IDE or Editor files
+.vscode/
+.idea/
+.DS_Store
+
+# Optional npm cache directory
+.npm
+
+# Package lock files (optional, if you prefer not to version them)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Coverage directory (if using Jest or other testing libraries)
+coverage/
+
+# Temporary files
+tmp/
+temp/

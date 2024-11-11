@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Manipulación y Eventos en jQuery</title>
+    <style>
+        .highlight { background-color: yellow; }
+        .active { font-weight: bold; color: red; }
+        .box { padding: 10px; border: 1px solid black; margin: 10px; }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <h1>Manipulación del DOM y Eventos en jQuery</h1>
+
+    <!-- Ejemplo de Modificación de Atributos y Contenido -->
+    <a id="link" href="https://www.openai.com">Enlace a OpenAI</a>
+    <div id="contentDiv">
+        <p>Contenido de prueba en el div.</p>
+    </div>
+    <button id="changeAttributes">Cambiar Atributos y Contenido</button>
+
+    <!-- Ejemplo de Manipulación de Clases CSS -->
+    <div id="miDiv" class="box">Este es un div con clases CSS</div>
+    <button id="toggleClass">Alternar Clase</button>
+
+    <!-- Ejemplo de Inserción de Elementos en el DOM -->
+    <ul id="lista">
+        <li>Elemento existente</li>
+    </ul>
+    <button id="addElements">Agregar Elementos</button>
+
+    <!-- Ejemplo de Eliminación de Elementos -->
+    <div id="contenedor" class="box">Este es un contenedor con varios hijos</div>
+    <button id="removeContent">Eliminar Contenido</button>
+    <button id="removeContainer">Eliminar Contenedor</button>
+
+    <!-- Ejemplo de Eventos Comunes -->
+    <input type="text" id="inputField" placeholder="Escribe algo aquí">
+    <button id="submitButton">Enviar</button>
+
+    <!-- Ejemplo de Efectos de Animación -->
+    <div id="animatedDiv" class="box">Div con efectos de animación</div>
+    <button id="toggleEffects">Alternar Efectos</button>
+
+    <script>
+            $(document).ready(function(){
+                // Modificaatributos y contenido
+                $("#changeAttributes").click(function() {
+                $("#link").attr("href", "https://www.google.com").text("Enlace a Google");
+                $("#contentDiv").html("<strong>Contenido actualizado</strong> en el div");
+                });
+
+                // Manejo de clases con CSS Cada vez que le doy click 'pone y quita' la clase
+                $('#toggleClass').click(function(){
+                    $("#miDiv").toggleClass('highlight')
+                });
+            
+                // Insersión de elemntos en el DOM
+                $('#addElements').click(function(){
+                    $("#lista").append("<li>Nuevo elemento al final</li>");
+                    $("#lista").prepend("<li>Nuevo elemento al inicio</li>");
+                    $("#toggleClass").after("<span> Texto después del botón</span>");
+                    $("#toggleClass").before("<span>Texto antes del botón </span>");
+                });
+
+                // Eliminación de elementos
+                $("#removeContent").click(function() {
+                $("#contenedor").empty(); // Elimina el contenido dentro del contenedor
+                });
+
+                $("#removeContainer").click(function() {
+                $("#contenedor").remove(); // Elimina el contenedor completo
+                });
+
+                // Eventos Comunes
+                $("#inputField").focus(function() {
+                $(this).css("background-color", "lightblue"); // cuando el foco esta en el input se bg azul y cuando no se quita el bg
+                }).blur(function() { // blur ews lo contrario a focus
+                    $(this).css("background-color", "");
+                });
+
+                $("#inputField").change(function() { // cuando el contenido cambia lanza una alerta
+                alert("¡El contenido del campo de texto ha cambiado!"); 
+                });
+
+                $("#submitButton").click(function() { 
+                alert("¡Formulario enviado!"); // en el click lanza una alerta
+                });
+
+                $("#inputField").keydown(function() {
+                console.log("Tecla presionada"); // salida por consola cuando dentro del campo de input presionas cualuiqer tecla
+                });
+
+                $("#inputField").keyup(function() {
+                console.log("Tecla liberada"); // salida por consola cuando dentro del campo de input dejas de presionar cualuiqer tecla
+                });
+
+                // Efectos de animación
+                $("#toggleEffects").click(function() { // cuando click en el boton se aplica una animacion al div mencionado
+                $("#animatedDiv").fadeToggle().slideToggle();
+                });
+            })
+    </script>
+
+</body>
+</html>

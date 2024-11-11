@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Examen Práctico: jQuery + TypeScript</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typescript@4.4.4/lib/typescript.js"></script>
+  <script src="path/to/your/typescript/file.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .section { margin-bottom: 20px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+    .section h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+
+  <!-- Ejercicio 1: Sistema de Elección Anidado -->
+  <div class="section" id="ejercicio1">
+    <h2>Ejercicio 1: Sistema de Elección Anidado</h2>
+    
+    <!-- Primer Nivel de Selección -->
+    <div id="animal-options">
+      <label><input type="radio" name="animal" value="elija"> Elija Animal</label>
+      <label><input type="radio" name="animal" value="perros"> Perros</label>
+      <label><input type="radio" name="animal" value="gatos"> Gatos</label>
+    </div>
+    
+    <!-- Segundo Nivel de Selección Dinámico -->
+    <div id="breed-options" style="margin-top: 10px;"></div>
+    
+    <!-- Área para Mostrar Texto -->
+    <div id="result-display1" style="margin-top: 10px; font-weight: bold;"></div>
+  </div>
+
+  <!-- Ejercicio 2: Transferencia de JSON a sessionStorage -->
+  <div class="section" id="ejercicio2">
+    <h2>Ejercicio 2: Transferencia entre JSON y sessionStorage</h2>
+    
+    <!-- Datos de Prueba en JSON -->
+    <p>Datos de prueba JSON:</p>
+    <pre id="json-data">{ "nombre": "Juan", "edad": 25, "ciudad": "Madrid" }</pre>
+    
+    <!-- Botones de Acción -->
+    <button id="btn-json2sessionStorage" onclick="json2sessionStorage(testData, false)">Copiar JSON a sessionStorage</button>
+    <button id="btn-json2sessionStorage-move" onclick="json2sessionStorage(testData, true)">Mover JSON a sessionStorage</button>
+    <button id="btn-sessionStorage2json" onclick="sessionStorage2json(testData, false)">Copiar sessionStorage a JSON</button>
+    <button id="btn-sessionStorage2json-move" onclick="sessionStorage2json(testData, true)">Mover sessionStorage a JSON</button>
+    
+    <!-- Mostrar Resultados de Transferencia -->
+    <p>Revisa la consola para verificar los datos en <code>sessionStorage</code>.</p>
+  </div>
+
+  <!-- Ejercicio 3: Lanzador de Dados Virtual -->
+  <div class="section" id="ejercicio3">
+    <h2>Ejercicio 3: Lanzador de Dados Virtual</h2>
+    
+    <!-- Input y Botones de Control -->
+    <label for="input-count">Número de tiradas (0 - 20):</label>
+    <input type="text" id="input-count" maxlength="2" style="width: 40px;">
+    <button id="btn-lanzar">Lanzar</button>
+    <button id="btn-parar" disabled>Parar</button>
+    
+    <!-- Área de Mensajes de Resultado -->
+    <div id="result-display2" style="margin-top: 10px; font-weight: bold;"></div>
+  </div>
+
+  <!-- Script de TypeScript compilado en JavaScript -->
+  <script src="../../dist/script.js"></script>
+
+  <script>
+    // Definición de datos de prueba en JSON para el Ejercicio 2
+    const testData = {
+      nombre: "Juan",
+      edad: 25,
+      ciudad: "Madrid"
+    };
+  </script>
+
+</body>
+</html>

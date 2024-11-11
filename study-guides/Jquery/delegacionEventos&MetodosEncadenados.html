@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de jQuery: Delegación de eventos, AJAX y FileReader</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+
+    <h2>Delegación de Eventos</h2>
+    <button id="agregarElemento">Agregar Elemento a la Lista</button>
+    <ul id="listaDinamica"></ul>
+
+    <h2>AJAX: Cargar datos de un servidor</h2>
+    <button id="cargarDatos">Cargar Datos</button>
+    <div id="resultadoAjax"></div>
+    <div id="cargando" style="display:none;">Cargando...</div>
+
+    <h2>Leer un archivo JSON local</h2>
+    <input type="file" id="archivoJson" accept=".json">
+    <button id="leerJson">Leer archivo JSON</button>
+    <div id="resultadoJson"></div>
+
+    <script>
+        $(document).ready(function() {
+            // Delegación de eventos
+
+                // En el click agrega un elemento li a la lista lu
+            $('#agregarElemento').click(function(){
+                $('#listaDinamica').append('<li>Elemento Nuevo</li>');
+            });
+
+                /* Cuando le damos click a cualquiera de los elementos creados en la funcion anterior
+                salta una alerta */
+            $('#listaDinamica').on('click', 'li', function() {
+                alert("Elemento clicado: " + $(this).text());
+            });
+
+            // Encadenamineto de métodos
+
+                /* Cuando le damos click al boton  vacia el div e introduce
+                 la frase preparando solicitud con su css */
+            $("#cargarDatos").click(function() {
+                $("#resultadoAjax").empty().css("color", "blue").text("Preparando solicitud...");
+            });
+
+            // Ajax con manejo de errores
+                /*
+                */
+                ('#cargarDatos').click(function() { // añadimos el eventro click
+                $.ajax({ // función de jQuery que se utiliza para realizar solicitudes AJAX, es decir, para enviar y recibir datos del servidor de forma asíncrona sin tener que recargar la página.
+                    url: 'https://jsonplaceholder.typicode.com/posts/1', // url o la ruta
+                    type: 'GET', // configuraciones necesarias de ajax
+                    dataType: 'json', 
+                    beforeSend: function() { // es una función de callback que se ejecuta antes de que se realice la solicitud.
+                        $('#cargando').show(); // muestra un elemento con el ID #cargando, que probablemente es un indicador de carga 
+                    },
+                    success: function(response) { // Esta función se ejecuta si la solicitud es exitosa  // El responde es el objeto que recibimos del servidor (en este caso, un objeto JSON
+                        $('#resultadoAjax').html(
+                            "<p>Título: " + response.title + "</p>" + // ara insertar el título y el cuerpo de la publicación en el elemento con el ID
+                            "<p>Cuerpo: " + response.body + "</p>"
+                        );
+                    },
+                    error: function(xhr, status, error) { // Si ocurre un error durante la solicitud
+                        $('#resultadoAjax').text('Error en la solicitud: ' + error); // muestra un mensaje de error en el elemento #resultadoAjax
+                    },
+                    complete: function() { // se ejecuta después de que la solicitud se haya completado
+                        $('#cargando').hide(); // oculta el indicador de carga
+                    }
+                });
+            });
+
+        })
+    </script>
+</body>
+</html>

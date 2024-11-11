@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Selectores en jQuery</title>
+    <style>
+        div, p, h2, span, form, input, button {
+            margin: 5px;
+            padding: 5px;
+            border: 1px solid black;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+    <!-- Incluimos la librería de jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <div id="contenedor">
+        <h2>Encabezado dentro del div</h2>
+        <p>Primer párrafo dentro del div</p>
+        <p>Segundo párrafo dentro del div</p>
+        <div class="subcontenedor">
+            <p>Hijo directo de subcontenedor</p>
+            <span>Elemento span dentro de subcontenedor</span>
+        </div>
+        <p>Otro párrafo en el div principal</p>
+        <h2>Otro encabezado dentro del div</h2>
+        <p>Párrafo después del segundo h2</p>
+    </div>
+
+    <form>
+        <input type="text" value="Texto de ejemplo">
+        <input type="password" value="password">
+        <input type="radio" name="radio">
+        <input type="checkbox" checked>
+        <input type="submit" value="Enviar">
+        <input type="reset" value="Restablecer">
+        <button type="button">Botón</button>
+        <input type="file">
+        <input type="image" src="https://via.placeholder.com/50" alt="Imagen de ejemplo">
+        <select>
+            <option>Opción 1</option>
+            <option selected>Opción 2</option>
+            <option>Opción 3</option>
+        </select>
+    </form>
+
+    <p class="empty"></p>
+    <p>No contiene el texto buscado</p>
+    <p>Este párrafo contiene la palabra 'jQuery'.</p>
+    <p style="display: none;">Este párrafo está oculto.</p>
+    <p></p>
+
+    <script>
+        // Selectores de jerarquía
+        $('#contenedor > p').css('color', 'blue'); // Cambiar el color de la letra a todos los hijos DIRECTOS del div #contenedor
+        $('#contenedor p').css('background-color', 'lightgreen') // color de fondo de todos los hijos DIRECTOS y ANIDADOS del div #contenedor
+        $('h2 + p').css('color', 'red') // el hermado (p) que le sigue al h2 (inmediato)
+        $('h2 ~ p').css('border', "2px dashed purple") // Todos los hermanos (p) que le siguen a cada h2
+
+        // Selectores de filtros
+        $("p:first").addClass("highlight") // selecciona el primer p que encuentra y le añade la clase "highlight" que le agtega un estilo
+        $("p:last").css('background-color', 'red') // seleciona el ultimo p
+        $("p:even").css('background-color', 'lightblue') // selecciona los p pares
+        $("p:odd").css('background-color', 'lightcoral') //Seleciona los p impares
+        $("p:eq(2)").css("font-weight", "bold") // p con indice 2 (Empieza desde 0)
+        $("p:gt(2)").css("border", "5px solid gray") // p con indice mayores que 2
+        $("p:lt(2)").css("border", "5px solid yellow") // p con indice menores que 2
+        $("p:not(.highlight)").css("font-style", "italic") // P que no tienen la clase highligth
+
+        // Selectores de contenido
+        $('p:contains("jQuery")').css("color", "blue"); // p que contiene la palabra
+        $("div:has(span)").css("border", "3px solid red") // div que contiene un span
+        $("p:empty").css("background-color", "lightgray") // parrafos vacios
+        $("div:parent").css("padding", "10px") // div que tienen hijos
+
+        // Selectores de visibilidad
+        $(':hidden').show().css("background-color", "pink") // Muestra los elementos ocultos y les cambia en bg a pink
+        $(':visible').css("border", "2px solid green") // Elementos visibles le cambiamos el borde a verde
+
+        // Selectores de formularios
+        $(':input').css("margin", "5px") // todos los elemntos de entrada de formularios
+        $(':text').css("background-color", "lightyellow") // campos de entradas de texto bg amarillo
+        $(':password').css("background-color", "lightblue") // campos de entradas de contraseñas
+        $(':radio').parent().css("background-color", "lightgreen") // radio buttons
+        $(":checkbox").parent().css("background-color", "lightpink") // checkbox
+        $(":submit").css("border", "2px solid blue"); // Boton de submit
+        $(":reset").css("border", "2px solid red") // Boton de resetear
+        $(":button").css("background-color", "orange") // botones
+        $(":file").css("background-color", "red") // elementos de archivos
+        $(":image").css("border", "2px solid purple") // Elementos de imagenes
+        $(":enabled").css("opacity", "1") // elemntos habilitados
+        $(":disabled").css("opacity", "0.5") // elemntos deshabilitados
+        $(":selected").css("color", "plum") // elemntos seleccionados en un menú desplegrable
+        $(":checked").css("outline", "2px solid green") // elemntos chequeados
+        
+    </script>
+</body>
+</html>
